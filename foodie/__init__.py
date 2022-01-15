@@ -12,7 +12,11 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'Jesus'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # OLD DB 
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # NEW DB
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/database'
+    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
     migrate.init_app(app, db)

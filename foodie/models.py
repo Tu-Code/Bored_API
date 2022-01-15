@@ -25,6 +25,7 @@ class User(db.Model, UserMixin):
     activities = db.relationship('UserActivity', lazy = True, backref = 'user')
 
 class UserActivity(db.Model):
+    __tablename__ = 'useractivity'
     id = db.Column( db.Integer, primary_key = True, autoincrement = True )
     uid = db.Column( db.Integer, db.ForeignKey('user.id'), nullable = False )
-    aid = db.Column( db.Integer, db.ForeignKey('activity.id'), nullable = False )
+    aid = db.Column( INTEGER(unsigned=True), db.ForeignKey('activity.id'), nullable = False )
