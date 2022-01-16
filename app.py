@@ -1,4 +1,4 @@
-from . import create_app
+from .foodie import create_app
 
 app = create_app()
 app.run( debug = True )
