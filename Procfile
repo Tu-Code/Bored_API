@@ -1,1 +1,1 @@
-web: gunicorn foodie:__main__
+web: gunicorn app:app
