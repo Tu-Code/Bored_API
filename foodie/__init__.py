@@ -7,47 +7,47 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 DB_NAME = "database.db"
 migrate = Migrate()
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'Jesus'
+# OLD DB 
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+# NEW DB
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/database'
 
-
-def create_app():
-    app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'Jesus'
-    # OLD DB 
-    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    # NEW DB
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/database'
-    
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-    db.init_app(app)
-    migrate.init_app(app, db)
-
-    
-    from .views import views
-    from .auth import auth
-
-    from .controllers import controllers
-
-    app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/')
-    app.register_blueprint(controllers, url_prefix='/')
-
-    from .models import User
-
-    create_database(app)
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
-        
-    return app
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db.init_app(app)
+migrate.init_app(app, db)
 
 
 def create_database(app):
     if not path.exists('foodie/' + DB_NAME):
         db.create_all(app=app)
         print('Created Database!')
+
+from .views import views
+from .auth import auth
+
+from .controllers import controllers
+
+app.register_blueprint(views, url_prefix='/')
+app.register_blueprint(auth, url_prefix='/')
+app.register_blueprint(controllers, url_prefix='/')
+
+from .models import User
+
+create_database(app)
+
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+    
+
+# def create_app():
+    
+#     return app
+
 
