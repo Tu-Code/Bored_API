@@ -3,7 +3,7 @@ from flask.json import jsonify
 from .models import UserActivity
 from . import db
 from flask_login import current_user
-from flask.helpers import url_for
+# from flask.helpers import url_for
 import json
 
 controllers = Blueprint('controllers', __name__)
@@ -11,8 +11,6 @@ controllers = Blueprint('controllers', __name__)
 @controllers.route('/delete-note/<int:id>', methods=[ 'DELETE' ])
 def delete_note(id):
     activity = json.loads( request.data )
-      #data = Data.query.get( ' id' )
-      #wo zai shi bu an quan
     print(activity)
     activity_id = activity[ 'activity_id' ]
     activity = UserActivity.query.get( activity_id )
