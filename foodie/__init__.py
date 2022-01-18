@@ -21,7 +21,6 @@ migrate.init_app(app, db)
 
 def create_database(app):
     if not path.exists('foodie/' + DB_NAME):
-        db.create_all(app=app)
         print('Created Database!')
 
 from .views import views
@@ -36,6 +35,8 @@ app.register_blueprint(controllers, url_prefix='/')
 from .models import User
 
 create_database(app)
+db.create_all(app=app)
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
