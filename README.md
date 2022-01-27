@@ -3,7 +3,6 @@ Interactive web application making use of the **'Bored' API that fetches *activi
 
 How to run locally
 1. Create a virtual environment
-1. run using pip '''cmd
-pip install -r requirements.txt'''
+1. run using pip `pip install -r requirements.txt`
 to install the required modules
-1. run python -m foodie in the terminal/command-promp
+1. run `python -m foodie` in the terminal/command-prompt
