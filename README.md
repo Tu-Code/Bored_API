@@ -1,5 +1,5 @@
 # Bored_API
-Interactive web application making use of the **'Bored' API that fetches *activities* based on user's choice
+Interactive web application making use of the **'Bored' API** that fetches *activities* based on user's choice
 
 How to run locally
 1. Create a virtual environment
